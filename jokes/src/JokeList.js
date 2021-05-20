@@ -12,6 +12,7 @@ class JokeList extends Component {
             jokes: JSON.parse(window.localStorage.getItem("jokes")) || [],
             loading: false
         };
+        this.seenJokes = new Set(this.state.jokes.map(j => j.joke))
         this.handleVote = this.handleVote.bind(this)
         this.handleClick = this.handleClick.bind(this)
     }
@@ -23,23 +24,33 @@ class JokeList extends Component {
     async componentDidMount(){
         // Load jokes from api
         if(this.state.jokes.length === 0) this.getJokes()
-        
     }
 
     async getJokes(){
-        this.setState({loading: true})
-        let jokes = [];
-        while (jokes.length < this.props.numJokesToLoad) {
-            let res = await axios.get("https://icanhazdadjoke.com/", {headers: { Accept: "application/json"}})
-            let joke = res.data.joke
-            jokes.push({id: uuid(), joke: joke, votes: 0})
-        }
-        this.setState(st => ({
-                jokes: [...st.jokes, ...jokes],
-                loading: false
-            }),
-             
-        () => window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes)))
+        try {
+            this.setState({loading: true})
+            let jokes = [];
+            while (jokes.length < this.props.numJokesToLoad) {
+                let res = await axios.get("https://icanhazdadjoke.com/", {headers: { Accept: "application/json"}})
+                let joke = res.data.joke
+                if(!this.seenJokes.has(joke)){
+                    jokes.push({id: uuid(), joke: joke, votes: 0})
+                } else {
+                    console.log("Has duplicate: ", joke)
+                }
+                
+            }
+            this.setState(st => ({
+                    jokes: [...st.jokes, ...jokes],
+                    loading: false
+                }),
+                
+            () => window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes)))
+            } catch (e) {
+                alert(e);
+                this.setState({ loading: false })
+            }
+        
     }
 
     handleVote(id, delta){
