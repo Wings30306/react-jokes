@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios"
 import Joke from "./Joke"
 
+import "./JokeList.css"
+
 class JokeList extends Component {
     constructor(props){
         super(props)
@@ -26,8 +28,17 @@ class JokeList extends Component {
     render() {
         return (
             <div className="JokeList">
-                <h1>Dad Jokes</h1>
-                {this.state.jokes.map(joke => <Joke key={joke} joke={joke} />)}
+                <div className="JokeList-sidebar">
+                    <h1 className="JokeList-title"><span>Dad</span>Jokes</h1>
+                    <img 
+                        src="https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg"
+                        alt="Laughing smiley face - Icon by Dryicons" /> 
+                    <button className="JokeList-getmore" >Get More Jokes</button>
+                </div>
+                <div className="JokeList-jokes">
+                    {this.state.jokes.map(joke => <Joke key={joke} joke={joke} />)}
+                </div>
+                
             </div>
         )
     }
