@@ -46,3 +46,16 @@
     color: white;
     text-align: center;
 }
+
+.JokeList-getmore {
+    font-size: 1.5rem;
+    width: 50%;
+    border-radius: 2rem;
+    padding: 1rem 2rem;
+    color: white;
+    font-weight: 700;
+    margin: 2rem;
+    border: 0;
+    word-spacing: 2rem;
+    background: linear-gradient(123deg, rgba(232,9,223,1) 0%, rgba(0,212,255,1) 100%);
+}

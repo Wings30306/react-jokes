@@ -83,7 +83,7 @@ class JokeList extends Component {
                     <img 
                         src="https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg"
                         alt="Laughing smiley face - Icon by Dryicons" /> 
-                    <button className="JokeList-getmore" onClick={this.handleClick}>Get More Jokes</button>
+                    <button className="JokeList-getmore" onClick={this.handleClick}>More Jokes</button>
                 </div>
                 <div className="JokeList-jokes">
                     {jokes.map(joke => (
